@@ -1,6 +1,7 @@
 <template>
   <div class="volume">
     <mtd-button @click="back">返回</mtd-button>
+    <audio :src="music.info.mp3url" ref="audio" loop></audio>
     <!-- <div v-if="currentIndex !== -1">
       <div v-if="playList[currentIndex].name !== 'transition'">
         <p>现在的阶段：{{ playList[currentIndex].stage }}</p>
@@ -68,51 +69,23 @@ export default {
     nightVolumeList() {
       return this.$store.state.volumeList.night;
     },
+    music() {
+      return this.$store.state.music;
+    },
   },
   mounted() {
-    this.playList = this.initVolume();
+    // this.playList = this.initVolume();
     // this.speak();
     // this.timer = setInterval(this.speakVolume, 30 * 1000);
     this.speakVolume();
   },
-  destroyed() {
-    if (!this.timer) {
+  beforeDestroy() {
+    if (this.timer) {
       clearInterval(this.timer);
       this.timer = null;
     }
   },
   methods: {
-    initVolume() {
-      let list = [];
-      // this.duskVolumeList.forEach((element) => {
-      //   element.volume.forEach((volume) => {
-      //     list.push({
-      //       volume: volume,
-      //       name: element.name,
-      //       key: element.key,
-      //       stage: element.stage,
-      //     });
-      //   });
-      // });
-      // this.transition.forEach((element) => {
-      //   list.push({
-      //     volume: element,
-      //     name: '过渡阶段',
-      //     key: 'transition',
-      //   });
-      // });
-      // this.nightVolumeList.forEach((element) => {
-      //   element.volume.forEach((volume) => {
-      //     list.push({
-      //       volume: volume,
-      //       name: element.name,
-      //       key: element.key,
-      //       stage: element.stage,
-      //     });
-      //   });
-      // });
-      return list;
-    },
     playDusk() {
       this.currentVolumeIndex++;
       let msg =
@@ -178,15 +151,14 @@ export default {
       }
     },
     speak(msg) {
-      // this.currentIndex++;
-      // console.log(this.playList[this.currentIndex]);
-      // let msg = this.playList[this.currentIndex].volume;
       let speechInstance = new SpeechSynthesisUtterance(msg);
       speechSynthesis.speak(speechInstance);
-      // if (this.currentIndex >= this.playList.length) {
-      //   clearInterval(this.timer);
-      //   this.timer = null;
-      // }
+      speechInstance.onend = () => {
+        this.$refs.audio.play();
+      };
+      speechInstance.onstart = () => {
+        this.$refs.audio.pause();
+      };
     },
     back() {
       this.$router.push({ name: 'Start' });

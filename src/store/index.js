@@ -11,6 +11,7 @@ export default new Vuex.Store({
       dusk: [],
       night: [],
     },
+    music: {},
   },
   mutations: {
     addPlayers(state, payload) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
       state.volumeList.dusk.sort((a, b) => a.order - b.order);
       state.volumeList.night.sort((a, b) => a.order - b.order);
       console.log(state.volumeList);
+    },
+    addMusic(state, payload) {
+      state.music = payload;
     },
   },
   actions: {},

@@ -33,6 +33,7 @@
 // @ is an alias to /src
 import character from '@/data/character.json';
 import { cloneDeep } from 'lodash';
+import api from '@/api/api.js';
 
 export default {
   name: 'startPage',
@@ -71,9 +72,15 @@ export default {
         }
       }
     },
-    play() {
+    async play() {
+      if (this.choose.length < 5) {
+        return;
+      }
       console.log(this.choose);
+      const res = await api.getMusicUrl();
+      console.log(res.data);
       this.$store.commit('addPlayers', this.choose);
+      this.$store.commit('addMusic', res.data);
       this.$router.push({ name: 'Volume' });
     },
   },
