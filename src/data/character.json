@@ -1,0 +1,72 @@
+[
+  {
+    "alias": "模仿者",
+    "name": "copycat",
+    "volumeKey": ["copycat"]
+  },
+  {
+    "alias": "吸血鬼",
+    "name": "vampire",
+    "volumeKey": ["vampire"]
+  },
+  {
+    "alias": "吸血鬼领主",
+    "name": "theMaster",
+    "volumeKey": ["vampire"]
+  },
+  {
+    "alias": "伯爵",
+    "name": "theCount",
+    "volumeKey": ["vampire", "theCount"]
+  },
+  {
+    "alias": "血奴",
+    "name": "renfield",
+    "volumeKey": ["renfield"]
+  },
+  {
+    "alias": "病毒感染者",
+    "name": "diseased",
+    "volumeKey": ["diseased"]
+  },
+  {
+    "alias": "丘比特",
+    "name": "cupid",
+    "volumeKey": ["cupid", "lover"]
+  },
+  {
+    "alias": "煽动者",
+    "name": "instigator",
+    "volumeKey": ["instigator"]
+  },
+  {
+    "alias": "牧师",
+    "name": "priest",
+    "volumeKey": ["priest"]
+  },
+  {
+    "alias": "刺客",
+    "name": "assassin",
+    "volumeKey": ["assassin"]
+  },
+  {
+    "alias": "见习刺客",
+    "name": "apprenticeAssassin",
+    "volumeKey": ["apprenticeAssassin"]
+  },
+  {
+    "alias": "神射手",
+    "name": "marksman",
+    "volumeKey": ["marksman"]
+  },
+  {
+    "alias": "小偷",
+    "name": "pickpocket",
+    "volumeKey": ["pickpocket"]
+  },
+  {
+    "alias": "小魔怪",
+    "name": "gremlin",
+    "volumeKey": ["gremlin"]
+  }
+]
