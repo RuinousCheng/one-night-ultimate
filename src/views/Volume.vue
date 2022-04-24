@@ -123,7 +123,6 @@ export default {
         speechInstance.onend = () => {
           console.log(playMusic);
           playMusic ? this.$refs.audio.play() : null;
-          // this.$refs.audio.play()
           resolve();
         };
       });
