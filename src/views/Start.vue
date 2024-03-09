@@ -22,8 +22,9 @@
     </div>
     <div>
       <div>
-        玩家人数：{{ player }}
-        <mtd-button @click="play">开始游戏</mtd-button>
+        <span>卡牌数： {{ choose.length }};</span>
+        <span>{{ player }}</span>
+        <button @click="play">开始游戏</button>
       </div>
     </div>
   </div>
@@ -48,9 +49,8 @@ export default {
   },
   computed: {
     player() {
-      return this.choose.length - 3 <= 0
-        ? '最少选择5张牌'
-        : this.choose.length - 3 + '人';
+      const count = this.choose.length - 3;
+      return count <= 1 ? '最少选择5张牌' : `玩家人数：${count}人`;
     },
   },
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <div class="volume">
-    <mtd-button @click="back">返回</mtd-button>
+    <button @click="back">返回</button>
     <audio :src="music.info.mp3url" ref="audio" loop></audio>
     <!-- <div v-if="currentIndex !== -1">
       <div v-if="playList[currentIndex].name !== 'transition'">
