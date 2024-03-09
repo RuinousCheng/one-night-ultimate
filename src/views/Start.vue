@@ -1,13 +1,7 @@
-<!--
- * @Author: makotoo
- * @Date: 2022-04-21 23:16:35
- * @LastEditTime: 2022-04-21 23:48:59
- * @LastEditors: makotoo
- * @Description: 
- * @FilePath: /one-night-ultimate/src/views/Home.vue
--->
 <template>
   <div class="start">
+    <audio :src="music.mp3url" ref="audio" loop autoplay></audio>
+    <div class="music-name">{{ music.name }}</div>
     <div class="container">
       <div
         v-for="(item, index) in character"
@@ -46,11 +40,15 @@ export default {
   },
   mounted() {
     this.character = this.initCharacter();
+    this.playMusic();
   },
   computed: {
     player() {
       const count = this.choose.length - 3;
       return count <= 1 ? '最少选择5张牌' : `玩家人数：${count}人`;
+    },
+    music() {
+      return this.$store.state?.music?.info;
     },
   },
   methods: {
@@ -72,25 +70,30 @@ export default {
         }
       }
     },
-    async play() {
+    async playMusic() {
+      const res = await api.getMusicUrl();
+      this.$store.commit('addMusic', res.data);
+    },
+    play() {
       if (this.choose.length < 5) {
         return;
       }
-      console.log(this.choose);
-      const res = await api.getMusicUrl();
-      console.log(res.data);
       this.$store.commit('addPlayers', this.choose);
-      this.$store.commit('addMusic', res.data);
       this.$router.push({ name: 'Volume' });
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+.music-name {
+  position: fixed;
+  font-size: 24px;
+  top: 20px;
+  left: 20px;
+  color: rgba($color: #000000, $alpha: 0.3);
+  font-weight: 800;
+}
 .container {
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   width: 750px;
   margin: 0 auto;
   .character-card {

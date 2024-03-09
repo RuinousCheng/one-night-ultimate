@@ -1,6 +1,6 @@
 <template>
   <div class="volume">
-    <audio :src="music.info.mp3url" ref="audio" loop></audio>
+    <audio :src="music" ref="audio" loop :volume="volume" autoplay></audio>
     <div>
       <p>现在的阶段：{{ stage }}</p>
       <p>现在行动的角色：{{ player }}</p>
@@ -26,6 +26,7 @@ export default {
       player: '',
       behavior: '',
       script: true,
+      volume: 1,
     };
   },
   computed: {
@@ -39,7 +40,7 @@ export default {
       return this.$store.state.volumeList.night;
     },
     music() {
-      return this.$store.state.music;
+      return this.$store.state.music?.info?.mp3url;
     },
   },
   mounted() {
@@ -107,17 +108,16 @@ export default {
       this.behavior = this.end[0];
       await this.speak(this.end[0], false);
     },
-    speak(msg, playMusic = true) {
+    speak(msg) {
       let speechInstance = new SpeechSynthesisUtterance(msg);
       this.synth = speechInstance;
       speechInstance.onstart = () => {
-        this.$refs.audio.pause();
+        this.volume = 0.2;
       };
       speechSynthesis.speak(speechInstance);
       return new Promise((resolve) => {
         speechInstance.onend = () => {
-          console.log(playMusic);
-          playMusic ? this.$refs.audio.play() : null;
+          this.volume = 1;
           resolve();
         };
       });
